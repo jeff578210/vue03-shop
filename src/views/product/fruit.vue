@@ -84,28 +84,17 @@ const setlocalStorege =(event)=>{
     arrfavorite.value.push(event.target.id);
     // 轉成字串才能存到localStorage
     localStorage.setItem('favorite', JSON.stringify(arrfavorite.value));
-    console.log(Fruits.value);
+    // console.log(Fruits.value);
     setFavorite(Fruits, event.target.id);
   }else{
     arrfavorite.value.splice(index, 1);
     localStorage.setItem('favorite',JSON.stringify(arrfavorite.value));
-    setFavorite2(Fruits, event.target.id);
+    setFavorite2(Fruits, event.target.id); 
   }
 }
 // ====================================================
-// 檢查localStorage有沒有收藏決定愛心要不要填滿==========
-//   const myData = ref([]);
-//   const checkAddFavorite = (pname)=>{
-// // 查看localStorage有沒有收藏
-//   myData.value = JSON.parse(localStorage.getItem('favorite'))
-//     const index = myData.value.indexOf(pname);
-//     if(index===-1){
-//       return aa.value;
-//     }else{
-//       return !aa.value; 
-//   }
-// }
 function setFavorite(Fruits, X) {
+  // 將選擇品項的最愛填滿
   Fruits.value.forEach(function(fruit) {
     if (fruit.pname === X) {
       fruit.favorite = true;
@@ -113,6 +102,7 @@ function setFavorite(Fruits, X) {
   });
 }
 function setFavorite2(Fruits, X) {
+  // 將選擇品項的最愛變成空心
   Fruits.value.forEach(function(fruit) {
     if (fruit.pname === X) {
       fruit.favorite = false;
