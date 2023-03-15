@@ -17,7 +17,9 @@
         </div>
         <div class="mlAuto d-flex">
           <div class="navicon">
-            <img src="../assets/heart (1).svg" alt="" />
+            <a href="/favorite">
+              <img src="../assets/heart (1).svg" alt="" />
+            </a>
           </div>
           <div class="navicon">
             <img src="../assets/cart-fill.svg" alt="" />

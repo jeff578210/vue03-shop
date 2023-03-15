@@ -1,13 +1,13 @@
 <template>
 <div class="d-flex justify-content-center">
   <div class="container fruit-d">
-    <div class="row rowWidth" v-if="Fruits">
-      <div class="col-md-4 col-12` col-sm-6 col-lg-3 d-flex flex-column" v-for="val,index in Fruits" :key="index">
+    <div class="row rowWidth" v-if="Favorite">
+      <div class="col-md-4 col-12` col-sm-6 col-lg-3 d-flex flex-column" v-for="val,index in Favorite" :key="index">
         <a href="" class="col3border">
           <div class="card-d ">
             <div class="card-d-a" @click.prevent="setlocalStorege" >
-              <img v-if="!val.favorite" src="../../assets/愛心.svg" alt="" :id="val.pname">
-              <img v-if="val.favorite" src="../../assets/實心愛心.svg" alt="" :id="val.pname">
+              <img v-if="!val.favorite" src="../assets/愛心.svg" alt="" :id="val.pname">
+              <img v-if="val.favorite" src="../assets/實心愛心.svg" alt="" :id="val.pname">
             </div>
               <div class="cardShape">看更多內容</div>
             <img :src="val.img" alt="" id="cardimg">
@@ -42,12 +42,15 @@ onMounted(() => {
     windowWidth.value = window.innerWidth;
   });
   // ===========================================
-  // 如果沒有localStorage就建立一個
+  // 如果沒有localStorage就建立一個,將localStorage的最愛資料儲存
   if(!localStorage.getItem('favorite')){
     localStorage.setItem('favorite', []);
   }else{
     arrfavorite.value = JSON.parse(localStorage.getItem('favorite'))
   }
+  // ===========================================
+  // 載入頁面時傳入localStorage資料同步更新store中的Favorite
+  getFavorite(arrfavorite.value);
   // ===========================================
 });
 const navbarWidth = ref('1140px');
@@ -68,10 +71,11 @@ watchEffect(() => {
 });
 // ==================================================
 // ==================pinia引入Fruits
-import {usegetFruitsStore} from '../../stores/getFruits.js' 
+import {usegetFruitsStore} from '../stores/getFruits.js' 
 import {storeToRefs} from 'pinia'
 const getFruitsStore = usegetFruitsStore();
-const {Fruits} = storeToRefs(getFruitsStore)
+const {Fruits,Favorite} = storeToRefs(getFruitsStore);
+const {getFavorite} =getFruitsStore;
 // ==================================================
 // 點擊愛心加入收藏使用localStorage紀錄===================================
 const addFavorite = ref(false);
@@ -92,6 +96,8 @@ const setlocalStorege =(event)=>{
     localStorage.setItem('favorite',JSON.stringify(arrfavorite.value));
     setFavorite2(Fruits, event.target.id); 
   }
+  // 點擊愛心後及時傳入改變的localStorage讓store中的Favorite也能同步更新
+  getFavorite(arrfavorite.value);
 }
 // ====================================================
 function setFavorite(Fruits, X) {

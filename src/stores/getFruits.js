@@ -12,70 +12,70 @@ import img9 from '../assets/草莓.jpg'
 import img10 from '../assets/葡萄.jpg'
 export const usegetFruitsStore =defineStore("getFruits",()=>{
     const Fruits =ref([
-        {img:img1,
+        {   img:img1,
             type:'水果',
             price:'799',
             webpeice:'759',
             pname:'加州櫻桃',
             favorite:false
         },
-        {img:img2,
+        {   img:img2,
             type:'水果',
             price:'299',
             webpeice:'199',
             pname:'玫瑰蕉',
             favorite:false
         },
-        {img:img3,
+        {   img:img3,
             type:'水果',
             price:'1090',
             webpeice:'999',
             pname:'帝王柑',
             favorite:false
         },
-        {img:img4,
+        {   img:img4,
             type:'水果',
             price:'450',
             webpeice:'399',
             pname:'富士蘋果',
             favorite:false
         },
-        {img:img5,
+        {   img:img5,
             type:'水果',
             price:'599',
             webpeice:'499',
             pname:'小玉西瓜',
             favorite:false
         },
-        {img:img6,
+        {   img:img6,
             type:'水果',
             price:'199',
             webpeice:'129',
             pname:'黃金鳳梨',
             favorite:false
         },
-        {img:img7,
+        {   img:img7,
             type:'水果',
             price:'290',
             webpeice:'259',
             pname:'愛文芒果',
             favorite:false
         },
-        {img:img8,
+        {   img:img8,
             type:'水果',
             price:'999',
             webpeice:'888',
             pname:'拉拉山水蜜桃',
             favorite:false
         },
-        {img:img9,
+        {   img:img9,
             type:'水果',
             price:'550',
             webpeice:'454',
             pname:'豐香草莓',
             favorite:false
         },
-        {img:img10,
+        {   img:img10,
             type:'水果',
             price:'789',
             webpeice:'666',
@@ -83,6 +83,15 @@ export const usegetFruitsStore =defineStore("getFruits",()=>{
             favorite:false
         },
     ])
+    const Favorite = ref([]);
+    const getFavorite =(arr)=>{
+        // console.log(arr);
+        Favorite.value = Fruits.value.filter(fruit => arr.includes(fruit.pname));
+        // 將有加入最愛的品項的愛心填滿
+        for (let i = 0; i < Favorite.value.length; i++) {
+            Favorite.value[i].favorite = true;  
+        }
+    }
     const vegetable =ref([
         {img:img1,
             type:'蔬菜',
@@ -90,10 +99,11 @@ export const usegetFruitsStore =defineStore("getFruits",()=>{
             webpeice:'759',
             pname:'加州櫻桃',
         },
-        
     ])
+    
     return {
         Fruits,
-
+        Favorite,
+        getFavorite,
     }
 })
